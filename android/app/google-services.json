@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1063255893468",
+    "project_id": "fishdacart",
+    "storage_bucket": "fishdacart.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063255893468:android:79595ea9f59580435f9b19",
+        "android_client_info": {
+          "package_name": "com.fishdacart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATVnJgoMHx950bkcECgPnaLUIsfDa5KB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

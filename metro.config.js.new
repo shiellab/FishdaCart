@@ -1,0 +1,59 @@
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+
+/**
+ * Metro configuration - Optimized for Windows
+ */
+const config = {
+  maxWorkers: 2,
+  resetCache: false,
+  
+  // Speed up file watching
+  watchFolders: [],
+  
+  resolver: {
+    useWatchman: false,
+    nodeModulesPaths: [],
+    // Aggressive blocking to reduce file scanning
+    blockList: [
+      /node_modules\/.*\/node_modules\/.*/,
+      /.*\.git\/.*/,
+      /.*\.hg\/.*/,
+      /.*\.svn\/.*/,
+      /android\/.*/,
+      /ios\/.*/,
+      /backend\/.*/,  // Ignore Laravel backend entirely
+      /vendor\/.*/,
+      /.*\.test\.(js|jsx|ts|tsx)$/,
+      /.*\/__tests__\/.*/,
+      /.*\/__mocks__\/.*/,
+      /.*\.md$/,
+      /.*\.log$/,
+    ],
+  },
+  
+  // Faster transformer
+  transformer: {
+    babelTransformerPath: require.resolve('metro-react-native-babel-transformer'),
+    minifierConfig: {
+      keep_fnames: true,
+      mangle: false,
+    },
+    // Skip expensive transformations in dev
+    enableBabelRCLookup: false,
+  },
+  
+  // Reduce memory pressure
+  cacheStores: [
+    {
+      get: (key) => {},
+      set: (key, value) => {},
+    },
+  ],
+  
+  // Speed up server startup
+  server: {
+    enhanceMiddleware: (middleware) => middleware,
+  },
+};
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);
