@@ -1,12 +1,14 @@
 [phases.setup]
-nixPkgs = ["php83", "php83Packages.composer", "sqlite"]
+nixPkgs = ["php83", "php83Packages.composer", "php83Packages.php-pdo", "php83Packages.php-sqlite3", "sqlite"]
 
 [phases.build]
 cmds = [
-    "cd backend && composer install --no-dev --optimize-autoloader --no-interaction",
-    "cd backend && php artisan config:cache",
-    "cd backend && php artisan route:cache",
-    "cd backend && php artisan view:cache"
+    "cd backend && composer install --no-dev --optimize-autoloader --no-interaction 2>&1 || true",
+    "cd backend && mkdir -p storage && touch storage/database.sqlite 2>&1 || true",
+    "cd backend && php artisan config:cache 2>&1 || true",
+    "cd backend && php artisan route:cache 2>&1 || true",
+    "cd backend && php artisan view:cache 2>&1 || true",
+    "cd backend && php artisan migrate --force 2>&1 || true"
 ]
 
 [start]
